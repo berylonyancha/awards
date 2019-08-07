@@ -28,3 +28,11 @@ class ProfileTest(TestCase):
         profile = Profile.objects.all()
         self.assertTrue(len(profile)>0)
 
+class RatingtTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(id =1,username='a')
+        self.newproject = Project(image='media/awards/Fashion.jpg',project_name='Fashion',project_description='Delicious',id =1,url='http://127.0.0.1:8000/',profile=self.user)
+        self.new_rating = Comment(project=self.newproject,user=self.user,design='2',usability='5',content='9',comment='You are awesome',)
+   
+    def test_instance(self):
+        self.assertTrue(isinstance(self.new_rating,Comment))
