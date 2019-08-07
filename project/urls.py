@@ -15,6 +15,8 @@ urlpatterns=[
     url(r'^api/merch/$', views.ProjectMerchList.as_view()),
     url(r'api/merch/merch-id/(?P<pk>[0-9]+)/$',views.ProjectMerchDescription.as_view()),
 
+    
+
 ]
 
 if settings.DEBUG:

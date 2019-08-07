@@ -1,0 +1,105 @@
+#sidebarCollapse {
+  width: 40px;
+  height: 40px;
+  background: #f5f5f5;
+}
+
+#sidebarCollapse span {
+  height: 2px;
+  margin: 0 auto;
+  display: block;
+  background: #555;
+  transition: all 0.8s cubic-bezier(0.810, -0.330, 0.345, 1.375);
+}
+#sidebarCollapse span:first-of-type {
+  transform: rotate(45deg) translate(2px, 2px);
+}
+#sidebarCollapse span:nth-of-type(2) {
+  opacity: 0;
+}
+#sidebarCollapse span:last-of-type {
+  transform: rotate(-45deg) translate(1px, -1px);
+}
+#sidebarCollapse.active span {
+  transform: none;
+  opacity: 1;
+  margin: 5px auto;
+}
+.wrapper {
+  display: flex;
+  align-items: stretch;
+  perspective: 1500px; 
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  background: black;
+  color: #fff;
+  transition: all 0.6s cubic-bezier(0.945, 0.020, 0.270, 0.665);
+  transform-origin: center left;
+}
+
+#sidebar.active {
+  margin-left: -250px;
+  transform: rotateY(100deg); 
+}
+.collapse navbar-collapse{
+  width: 100%;
+}
+@media (max-width: 768px) {
+  #sidebar {
+      margin-left: -250px;
+      transform: rotateY(100deg);
+  }
+  #sidebar.active {
+      margin-left: 0;
+      transform: none;
+  }
+
+  #sidebarCollapse span:first-of-type,
+  #sidebarCollapse span:nth-of-type(2),
+  #sidebarCollapse span:last-of-type {
+      transform: none;
+      opacity: 1;
+      margin: 5px auto;
+  }
+  #sidebarCollapse.active span {
+      margin: 0 auto;
+  }
+  #sidebarCollapse.active span:first-of-type {
+      transform: rotate(45deg) translate(2px, 2px);
+  }
+  #sidebarCollapse.active span:nth-of-type(2) {
+      opacity: 0;
+  }
+  #sidebarCollapse.active span:last-of-type {
+      transform: rotate(-45deg) translate(1px, -1px);
+  }
+}
+/* .p-y-2 {
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+.p-y-3 {
+  padding-top: 45px;
+  padding-bottom: 45px;
+}
+.m-b-1 {
+  margin-bottom: 18px;
+}
+.m-t-1 {
+  margin-top: 18px;
+}
+.main_counter_area{
+  background: url(https://images.pexels.com/photos/196288/pexels-photo-196288.jpeg?w=940&h=650&auto=compress&cs=tinysrgb) no-repeat top center;
+  background-size: cover;
+  overflow: hidden;
+}
+.main_counter_area .main_counter_content .single_counter{
+  background: rgba(236, 72, 72, 0.5);
+  color: #fff;
+}
+.main_counter_area .main_counter_content .single_counter i{
+  font-size:36px;
+} */
