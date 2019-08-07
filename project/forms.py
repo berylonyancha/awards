@@ -7,3 +7,8 @@ class ProfileForm(forms.ModelForm):
           model = Profile
           exclude = ['name']
 
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Projects
+        exclude = [ 'profile' ]
+
