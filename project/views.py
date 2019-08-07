@@ -29,3 +29,27 @@ def convert_dates(dates):
 
     day = days[day_number]  
     return day
+@login_required(login_url='accounts/login')
+def profile(request,id):
+   current_user = request.user
+   profile = Profile.objects.get(user=current_user)
+   print(profile)
+   projects = Projects.objects.filter(user=current_user)
+   return render(request, 'profile.html', locals())
+
+@login_required(login_url='accounts/login')
+def update_profile(request, id):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.username = current_user
+            profile.name_id = current_user.id
+            profile.save()
+        return render(request, 'profile.html')
+
+    else:
+        form = ProfileForm()
+    return render(request, 'update_profile.html', {"form": form, "user": current_user})
+
