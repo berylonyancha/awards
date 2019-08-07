@@ -53,3 +53,40 @@ def update_profile(request, id):
         form = ProfileForm()
     return render(request, 'update_profile.html', {"form": form, "user": current_user})
 
+@login_required(login_url='accounts/login')
+def new_project(request, id):
+    current_user = request.user
+    if request.method == 'POST':
+        print('noo')
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user = current_user
+            project.save()
+        return redirect('home')
+ 
+    else:
+        form = ProjectForm()
+    return render(request, 'post.html', {"form": form, 'user': current_user})
+@login_required(login_url='accounts/login')
+def reviews(request, id):
+    current_user = request.user
+    review = Reviews.objects.filter(project_id=id)
+    profile = Profile.objects.all()
+    project = Projects.objects.get(id=id)
+    if request.method == 'POST':
+        print('noo')
+        form = ReviewsForm(request.POST, request.FILES)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.project = project
+            review.user = current_user
+            review.name_id = current_user.id
+            review.save()
+        return redirect('home')
+
+    else:
+        form = ReviewsForm()
+        
+    return render(request, 'review.html', {"form": form, 'user': current_user, 'profile':profile, 'project':project, 'review':review})
+
