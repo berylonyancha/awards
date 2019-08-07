@@ -1,0 +1,153 @@
+{% load bootstrap4 %}
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}" media="screen, projection">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <div class="col-xl-5 col-md-4 mb-3 text-center">
+
+                    <img src="https://static.vecteezy.com/system/resources/previews/000/370/791/non_2x/3d-realistic-vector-golden-cup-isolated-on-white-background-championship-trophy-surrounded-by-falling-confetti-sports-tournament-award.jpg" class="img-fluid z-depth-1 rounded-circle"
+                      alt="Responsive image">
+                
+                  </div>
+                  <h3>AWARDS</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="{% url 'home' %}">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'project' user.id %}"> Post Project</a>
+                </li>
+                <li>
+                    <a href="/profile/{{user.id}}">Profile</a>
+                </li>
+                <li>
+                    <a href="/logout">Logout</a>
+                </li>
+                {% endif %}
+            </ul>
+
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{%url 'home'%">HOME</a>
+                            </li>
+                            <form class="form-inline my-1" role="search" action="{%url 'search'%}">
+                                    <div class="md-form form-sm my-0">
+                                        <input class="form-control form-control-sm mr-sm-2 mb-0" type="search" placeholder="Search"
+                                        aria-label="Search" name="projects">
+                                        </div>
+                                        <button class="btn btn-outline-white btn-sm my-0" type="submit">Search</button>
+                            </form>
+                           
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+    <div class="jumbotron card card-image" style="background-image: url(https://images.pexels.com/photos/735277/pexels-photo-735277.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500);">
+        <div class="text-white text-center py-5 px-4">
+            <div>
+                <h2 class="card-title h1-responsive pt-3 mb-5 font-bold" style="color: black"><strong>AWWARDS</strong></h2>
+                <p class="mx-5 mb-5" style="color: black">Post your website and get your friends to rate you!!
+                </p>
+                <a class="btn btn-outline-white btn-md"><i class="fas fa-clone left" ></i> Scroll to view projects</a>
+            </div>
+        </div>
+    </div>
+<!-- Card deck -->
+    <div class="card-deck">
+
+        <!-- Card -->
+        <div class="card mb-4">
+    
+        <!--Card image-->
+        <div class="view overlay">
+            {% for projects in all_projects %}
+            <img class="card-img-top" src={{projects.project_photo.url}} alt="Card image cap">
+            <a href="#!">
+            <div class="mask rgba-white-slight"></div>
+            </a>
+        </div>
+    
+        <!--Card content-->
+        <div class="card-body">
+    
+            <!--Title-->
+            <h4 class="card-title">{{projects.title}}</h4>
+            <!--Text-->
+            <p class="card-text">{{projects.description}}</p>
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <p>{{projects.url}}</p>
+            <button class="btn btn-dark">
+                    <a href="{% url 'reviews' user.id %}" style="color: black;">Comment</a>
+            </button>
+           
+            <div class="card-footer text-muted text-center">
+                    {{projects.date}}
+            </div>
+        </div>
+     
+        {% empty %}
+        {% endfor %}
+        </div>
+      
+        </div>
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+  
+
+  
