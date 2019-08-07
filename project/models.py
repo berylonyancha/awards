@@ -50,7 +50,42 @@ class Projects(models.Model):
     def search_by_title(cls,search_term):
         allprojects = cls.objects.filter(title__icontains=search_term)
         return allprojects
+class Reviews(models.Model):
+    RATES=(
+      (1,'1'),
+      (2,'2'),
+      (3,'3'),
+      (4,'4'),
+      (5,'5'),
+      (6,'6'),
+      (7,'7'),
+      (8,'8'),
+      (9,'9'),
+      (10,'10')
+    )
+    project = models.ForeignKey('Projects')
+    user = models.ForeignKey(User)
+    review = models.TextField()
+    design = models.IntegerField(choices=RATES)
+    usability = models.IntegerField(choices=RATES)
+    content = models.IntegerField(choices=RATES)
 
+    def save_review(self):
+        self.save()
+
+    def delete_review(self):
+         self.delete()
+
+class AwardsMerch(models.Model):
+    name = models.OneToOneField(User, on_delete=models.CASCADE,primary_key=True)
+    profile_pic = models.ImageField(upload_to = 'awards/',blank=True)
+    bio = models.CharField(max_length=250, null=True)
+
+class ProjectMerch(models.Model):
+    image = models.ImageField(upload_to = 'awards/')
+    project_name = models.CharField(max_length=60)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    url = models.CharField(max_length=100)
     
 
     
