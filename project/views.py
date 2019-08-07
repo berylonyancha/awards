@@ -90,3 +90,16 @@ def reviews(request, id):
         
     return render(request, 'review.html', {"form": form, 'user': current_user, 'profile':profile, 'project':project, 'review':review})
 
+def search(request):
+    projects = Projects.objects.all()
+    if 'projects' in request.GET  and request.GET["projects"]:
+            search_term = request.GET.get("projects")
+            print(search_term)
+            message = f"{search_term}"
+            projects = Projects.search_by_title(search_term)
+            print(projects)
+            return render(request, 'search.html',{"message":message,"projects": projects})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
